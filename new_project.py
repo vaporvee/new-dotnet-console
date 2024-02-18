@@ -14,30 +14,8 @@ def apply_file_template(code, path):
     with open(path, 'w') as file:
         file.write(modified_code)
 
-csharp_code = """
-namespace PLACEHOLDER
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hi mom");
-            Console.ReadLine();
-        }
+csharp_template_file = open("templates/template.cs", 'r')
+python_build_file = open("templates/build.py", 'r')
 
-    }
-}
-"""
-
-
-python_code = """
-import os
-import subprocess
-
-os.system("dotnet.exe build")
-
-p = subprocess.Popen("\\"bin/Debug/net8.0/PLACEHOLDER.exe\\"", creationflags=subprocess.CREATE_NEW_CONSOLE)
-"""
-
-apply_file_template(csharp_code, new_project_name + "/Program.cs")
-apply_file_template(python_code, new_project_name + "/build.py")
+apply_file_template(csharp_template_file.read(), new_project_name + "/Program.cs")
+apply_file_template(python_build_file.read(), new_project_name + "/build.py")
